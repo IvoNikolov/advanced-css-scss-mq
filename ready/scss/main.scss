@@ -1,0 +1,139 @@
+@import "./colors";
+
+//Mixin
+@mixin quote(
+  $quote-color: colors.$success-color,
+  $quote-font-color: $font-color-primary
+) {
+  background-color: $quote-color;
+  color: $quote-font-color;
+  padding: $padding;
+  font-size: $font-size;
+}
+
+body {
+  background-color: $background-color-primary;
+  margin: 0;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+//Nesting
+.topnav {
+  background-color: $nav-color;
+  overflow: hidden;
+  display: flex;
+  list-style-type: none;
+  margin: 0;
+  padding: $padding;
+
+  a {
+    color: $font-color-primary;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: $padding - 0.4; 
+
+    &:hover {
+      background-color: $nav-color-hover;
+      color: $font-color-secondary;
+    }
+
+    &.active {
+      background-color: $success-color;
+      color: $font-color-primary;
+    }
+  }
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 33.3% 33.3% 33.3%;
+}
+
+.card {
+  width: 90%;
+  height: 120px;
+  margin: 10px;
+  border: 2px solid $border-color;
+  border-radius: 15px;
+}
+
+.quote {
+  &-success {
+    @extend .card;
+    @include quote();
+  }
+
+  &-failure {
+    @extend .card;
+    @include quote($danger-color);
+  }
+
+  &-neutral {
+    @extend .card;
+    @include quote($my-color, $font-color-secondary);
+  }
+}
+
+footer {
+
+  display: flex;
+  justify-content: center;
+
+  .img {
+    @extend .card;
+
+    position: absolute;
+    bottom: 0;
+    background-image: url("img.jpeg");
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    width: 24%;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    margin-bottom: 0;
+  }
+
+}
+
+@media only screen and (max-width: 1600px) {
+  footer {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 1260px) {
+  .grid {
+    grid-template-columns: 50% 50%;
+  }
+}
+
+@media only screen and (max-width: 800px) {
+  .grid {
+    grid-template-columns: 100%;
+  }
+}
+
+@media only screen and (aspect-ration: 1/1) {
+  body {
+    background-color: $background-color-secondary;
+  }
+}
+
+
+@media only screen and (maspect-ration: 3/5) {
+  body {
+    background-color: $background-color-tertiary;
+  }
+}
+
+
+@media all and (orientation: portrait) {
+  body {
+    background-color: $background-color-landscape;
+  }
+  .grid {
+    grid-template-columns: 100%;
+  }
+}
